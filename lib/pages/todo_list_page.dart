@@ -1,5 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_todolist_app/model/todo_item.dart';
+import 'package:flutter_todolist_app/pages/form_page.dart';
+import 'package:flutter_todolist_app/pages/todo_list_done_page.dart';
+import 'package:flutter_todolist_app/utils/network_manager.dart';
+import 'package:flutter_todolist_app/widget/item_widget.dart';
 
 class TodoListPage extends StatefulWidget {
   const TodoListPage({super.key});
@@ -12,6 +16,29 @@ class _TodoListPageState extends State<TodoListPage> {
   List<TodoItem> todos = [];
   bool isLoading = false;
   int totalDone = 0;
+
+  void refreshData() {
+    setState(() {
+      isLoading = true;
+    });
+    NetworkManager().getTodosIsDone(true).then((value) {
+      totalDone = value.length;
+      setState(() {});
+    });
+    NetworkManager().getTodosIsDone(false).then((value) {
+      todos = value;
+      setState(() {
+        isLoading = false;
+      });
+    });
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    refreshData();
+  }
+
   @override
   Widget build(BuildContext context) {
     final textTheme = Theme.of(context).textTheme;
@@ -34,7 +61,16 @@ class _TodoListPageState extends State<TodoListPage> {
                   style: textTheme.bodySmall,
                 ),
                 TextButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) {
+                          return TodoListDonePage();
+                        },
+                      ),
+                    );
+                  },
                   child: Text(
                     "Sudah diselesaikan : $totalDone",
                     style: TextStyle(
@@ -52,13 +88,31 @@ class _TodoListPageState extends State<TodoListPage> {
                         ? Center(
                             child: Text("Tidak ada data"),
                           )
-                        : SizedBox(),
+                        : ListView.builder(
+                            itemBuilder: (context, index) {
+                              return ItemWidget(
+                                todoItem: todos[index],
+                                handleRefresh: refreshData,
+                              );
+                            },
+                            itemCount: todos.length,
+                          ),
                   ),
           ],
         ),
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: () {},
+        onPressed: () async {
+          await Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) {
+                return FormPage();
+              },
+            ),
+          );
+          refreshData();
+        },
         child: Icon(Icons.add),
       ),
     );

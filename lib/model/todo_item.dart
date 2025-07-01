@@ -29,7 +29,6 @@ class TodoItem {
 
   Map<String, dynamic> toMap() {
     return <String, dynamic>{
-      'id': id,
       'title': title,
       'description': description,
       'isDone': isDone,
