@@ -1,16 +1,20 @@
-# flutter_todolist_app
 
-A new Flutter project.
+# Simple To-Do App
+This is a simple to-do application built with Flutter, designed as a practical example for those learning Flutter development and API integration.
 
-## Getting Started
+# Features
+This app provides essential to-do management functionalities:
+- Create To-Dos: Easily add new tasks to your list.
+- View To-Do List: Display all your pending and completed tasks.
+- Update To-Do (Checklist): Mark tasks as complete or incomplete.
+- Delete To-Dos: Remove tasks you no longer need.
 
-This project is a starting point for a Flutter application.
+# Technical Details
+This application is designed to interact with a local API for data persistence, leveraging the following technologies:
+- Local Database API (JSON Server + Ngrok): Simulates a backend API for development, allowing the Flutter app to interact with a JSON data source exposed locally via Ngrok.
+- Dio: A powerful HTTP client for Dart, used for making robust API requests to the local JSON server.
 
-A few resources to get you started if this is your first Flutter project:
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+## Screenshots
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+![Notes App Screenshot](https://raw.githubusercontent.com/Budiart18/flutter_todolist_app/6b929c71cd333b02c02632a9583b2008bf19cc79/lib/images/TodoApp_Flutter.jpg)
